@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import Tag from '../src/components/tag';
+import SingleTag from '../src/tags/SingleTag';
 
 describe('Tag', () => {
-  let tag: Tag;
+  let tag: SingleTag;
 
   beforeEach(() => {
-    tag = new Tag('label', {});
+    tag = new SingleTag('label', {});
   });
 
   it('should create', () => {
@@ -20,7 +20,7 @@ describe('Tag', () => {
     });
 
     it('should return correct string for attributes', () => {
-      tag = new Tag('label', {key1: 'value1', key2: 'value2'});
+      tag = new SingleTag('label', {key1: 'value1', key2: 'value2'});
       const expected = '<label key1="value1" key2="value2">';
 
       expect(tag.toString()).toBe(expected);
