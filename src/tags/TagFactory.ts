@@ -3,31 +3,27 @@ import selfClosingTags from './constants';
 import PairTag from './PairTag';
 import SingleTag from './SingleTag';
 
-type TagConstructor = new (
+type TagCreator = (
   tagName: string,
   attributes: TagAttributes,
   content?: string
 ) => ITag;
 
-const mapping: Record<'single' | 'pair', TagConstructor> = {
-  single: SingleTag,
-  pair: PairTag,
+const tagCreators: Record<'single' | 'pair', TagCreator> = {
+  single: (tagName, attributes, _content?) => new SingleTag(tagName, attributes),
+  pair: (tagName, attributes, content?) => new PairTag(tagName, attributes, content ?? ''),
 };
 
 class TagFactory {
-  private static getTagType(tagName: string): TagConstructor {
+  private static getTagType(tagName: string): TagCreator {
     const lowerTag = tagName.toLowerCase();
-    return selfClosingTags.has(lowerTag) ? mapping.single : mapping.pair;
+    return selfClosingTags.has(lowerTag) ? tagCreators.single : tagCreators.pair;
   }
 
   static factory(tagName: string, attributes: TagAttributes, content?: string): ITag{
-    const TagType = this.getTagType(tagName);
+    const creator = this.getTagType(tagName);
 
-    if (TagType === mapping.single) {
-      return new TagType(tagName, attributes);
-    }
-
-    return new TagType(tagName, attributes, content);
+    return creator(tagName, attributes, content);
   }
 };
 
