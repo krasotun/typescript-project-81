@@ -9,13 +9,16 @@ class Tag implements ITag {
 
   private _getStringFromAttributes(): string {
     return Object.entries(this.attributes)
-      .map(([key,value]) => `${key}=${value}`)
+      .map(([key,value]) => `${key}="${value}"`)
       .join(' ');
   }
 
   toString(): string {
-    return `<${this.tagName} ${this._getStringFromAttributes()}>`;
-  };     
+    const attrs = this._getStringFromAttributes();
+    
+    return `<${this.tagName}${attrs ? ` ${attrs}` : ''}>`;
+  }
+   
 }
 
 export default Tag;
