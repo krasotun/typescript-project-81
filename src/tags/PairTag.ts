@@ -1,5 +1,5 @@
 import { TagAttributes } from '../model/model';
-import Tag from './tag';
+import Tag from './Tag';
 
 class PairTag extends Tag {
 
