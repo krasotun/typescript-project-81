@@ -1,10 +1,26 @@
-import Tag from '../tags/Tag';
-
 
 export type TagAttributes = Record<string, string>;
-
 export interface ITag {
     toString: () => string;
 };
+export interface IFormBuilder {
+  input: (fieldName: string, options: Record<string, string | number>) => void;
+  toString: () => string;
+};
+
+
+
+export enum Form_Methods {
+  POST = 'post',
+  PATCH = 'patch',
+  PUT = 'put',
+  DELETE = 'delete',
+};
+
+export type FormTemplate = Record<string, string>;
+
+export type FormMethod = Record<'method', Form_Methods>;
+
+export type FormCallBack = () => void;
 
 
