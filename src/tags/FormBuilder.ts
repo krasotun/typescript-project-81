@@ -49,7 +49,7 @@ class FormBuilder implements IFormBuilder {
   }
 
   toString(): string {
-    return this._fields.map((field) => field.toString()).join('\n');
+    return this._fields.map((field) => field.toString()).join('');
   }
 
   private _capitalize(text: string): string {
