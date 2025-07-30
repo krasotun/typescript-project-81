@@ -38,7 +38,7 @@ describe('formBuilder', () => {
     it('should generate textarea with default cols and rows', () => {
       formBuilder.input('name', { as: 'textarea' });
       const expected =
-        '<label for="name">Name</label><textarea name="name" cols="20" rows="40">rob</textarea>';
+        '<label for="name">Name</label><textarea cols="20" rows="40" name="name">rob</textarea>';
 
       expect(formBuilder.toString()).toBe(expected);
     });
@@ -46,7 +46,7 @@ describe('formBuilder', () => {
     it('should generate textarea with cols and rows', () => {
       formBuilder.input('name', { as: 'textarea', cols: 21, rows: 41 });
       const expected =
-        '<label for="name">Name</label><textarea name="name" cols="21" rows="41">rob</textarea>';
+        '<label for="name">Name</label><textarea cols="21" rows="41" name="name">rob</textarea>';
 
       expect(formBuilder.toString()).toBe(expected);
     });

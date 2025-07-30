@@ -17,16 +17,19 @@ class FormBuilder implements IFormBuilder {
 
     const { as, ...rest } = options ?? {};
 
-    const inputProps = {
-      name: fieldName,
-      ...(isTextarea
-        ? {
-          ...rest,
-          cols: options.cols ?? 20,
-          rows: options.rows ?? 40,
-        }
-        : { ...options, type: 'text', value }),
-    };
+    const inputProps = isTextarea
+      ? {
+        cols: options.cols ?? 20,
+        rows: options.rows ?? 40,
+        name: fieldName,
+        ...rest,
+      }
+      : {
+        name: fieldName,
+        ...rest,
+        type:  'text',
+        value,
+      };
 
     const tag = isTextarea
       ? TagFactory.factory('textarea', inputProps, value)
