@@ -10,7 +10,7 @@ class FormGenerator{
     cb(formBuilder);
     const formContent = formBuilder.toString(); 
 
-    const form = TagFactory.factory('form', {...defaultAction, ...method, }, formContent);
+    const form = TagFactory.factory('form', { ...method, ...defaultAction, }, formContent);
     return form.toString();
   }
 };
