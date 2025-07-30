@@ -4,7 +4,8 @@ export interface ITag {
     toString: () => string;
 };
 export interface IFormBuilder {
-  input: (fieldName: string, options: Record<string, string| number>) => void;
+  input: (fieldName: string, options?: Record<string, string| number>) => ITag;
+  submit: (name?: string) => ITag,
   toString: () => string;
 };
 

@@ -6,16 +6,16 @@ class FormBuilder implements IFormBuilder {
 
   constructor(private readonly _template: FormTemplate) {}
 
-  input(fieldName: string, options: Record<string, string | number>): ITag {
+  input(fieldName: string, options?: Record<string, string | number>): ITag {
     const value = this._template[fieldName];
 
     if (!(fieldName in this._template)) {
       throw new Error(`Field '${fieldName}' does not exist in the template.`);
     }
 
-    const isTextarea = options.as === 'textarea';
+    const isTextarea = options?.as === 'textarea';
 
-    const { as, ...rest } = options;
+    const { as, ...rest } = options ?? {};
 
     const inputProps = {
       name: fieldName,
@@ -35,6 +35,14 @@ class FormBuilder implements IFormBuilder {
     const label = TagFactory.factory('label', { for: fieldName }, this._capitalize(fieldName));
 
     this._fields.push(label);
+    this._fields.push(tag);
+
+    return tag;
+  }
+
+  submit(value = 'Save'): ITag {
+    const tag = TagFactory.factory('input', {type: 'submit', value});
+
     this._fields.push(tag);
 
     return tag;
