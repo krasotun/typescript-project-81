@@ -11,7 +11,7 @@ describe('formBuilder', () => {
 
   it('should generate input from template', () => {
     formBuilder.input('name', {});
-    const expected = '<input name="name" type="text" value="rob">';
+    const expected = '<label for="name">Name</label>\n<input name="name" type="text" value="rob">';
 
     expect(formBuilder.toString()).toBe(expected);
   });
@@ -20,7 +20,7 @@ describe('formBuilder', () => {
     formBuilder.input('name', {});
     formBuilder.input('job', {});
     const expected =
-      '<input name="name" type="text" value="rob">\n<input name="job" type="text" value="hexlet">';
+      '<label for="name">Name</label>\n<input name="name" type="text" value="rob">\n<label for="job">Job</label>\n<input name="job" type="text" value="hexlet">';
 
     expect(formBuilder.toString()).toBe(expected);
   });
@@ -28,21 +28,23 @@ describe('formBuilder', () => {
   it('should generate input with attiributes', () => {
     formBuilder.input('name', { class: 'form-input', id: 'username', });
     const expected =
-      '<input name="name" class="form-input" id="username" type="text" value="rob">';
+      '<label for="name">Name</label>\n<input name="name" class="form-input" id="username" type="text" value="rob">';
 
     expect(formBuilder.toString()).toBe(expected);
   });
 
   it('should generate textarea with default cols and rows', () => {
-    formBuilder.input('job', { as: 'textarea' });
-    const expected = '<textarea name="job" cols="20" rows="40">hexlet</textarea>';
+    formBuilder.input('name', { as: 'textarea' });
+    const expected =
+      '<label for="name">Name</label>\n<textarea name="name" cols="20" rows="40">rob</textarea>';
 
     expect(formBuilder.toString()).toBe(expected);
   });
 
   it('should generate textarea with cols and rows', () => {
-    formBuilder.input('job', { as: 'textarea', cols: 21, rows: 41 });
-    const expected = '<textarea name="job" cols="21" rows="41">hexlet</textarea>';
+    formBuilder.input('name', { as: 'textarea', cols: 21, rows: 41 });
+    const expected =
+      '<label for="name">Name</label>\n<textarea name="name" cols="21" rows="41">rob</textarea>';
 
     expect(formBuilder.toString()).toBe(expected);
   });
