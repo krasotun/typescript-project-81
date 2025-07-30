@@ -1,10 +1,10 @@
 
-export type TagAttributes = Record<string, string>;
+export type TagAttributes = Record<string, string| number>;
 export interface ITag {
     toString: () => string;
 };
 export interface IFormBuilder {
-  input: (fieldName: string, options: Record<string, string | number>) => void;
+  input: (fieldName: string, options: Record<string, string| number>) => void;
   toString: () => string;
 };
 

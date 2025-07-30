@@ -25,6 +25,13 @@ describe('Tag', () => {
 
       expect(tag.toString()).toBe(expected);
     });
+
+    it('should genetate tag with content if content passed', () => {
+      tag = new PairTag('div',{}, 'content');
+      const expected = '<div>content</div>';
+
+      expect(tag.toString()).toBe(expected);
+    });
   });
 
 });

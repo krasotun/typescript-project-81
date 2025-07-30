@@ -1,12 +1,42 @@
-import { IFormBuilder } from '../model/model';
+import { FormTemplate, IFormBuilder, ITag } from '../model/model';
+import TagFactory from './TagFactory';
 
 class FormBuilder implements IFormBuilder {
-  input (fieldName: string, options: Record<string, string | number>): void {
-    console.log(fieldName, options);
+  private readonly _fields: ITag[] = [];
+
+  constructor(private readonly _template: FormTemplate) {}
+
+  input (fieldName: string, options: Record<string, string| number>): ITag {
+    const value = this._template[fieldName];
+
+    if (!(fieldName in this._template)) {
+      throw new Error(`Field '${fieldName}' does not exist in the template.`);
+    }
+
+    const isTextarea = options.as === 'textarea';
+
+    const {as, ...rest} = options;
+
+    const inputProps = {
+      name: fieldName,
+      ...(isTextarea ? { 
+        ...rest,
+        cols: options.cols ?? 20,
+        rows: options.rows ?? 40 } :
+        { ...options, type: 'text', value }),
+    };
+
+    const tag = isTextarea ?
+      TagFactory.factory('textarea', inputProps, value) :
+      TagFactory.factory('input', inputProps );
+
+    this._fields.push(tag);
+
+    return tag;
   };
   
   toString(): string {
-    return 'Will be later';
+    return this._fields.map((field) => field.toString()).join('\n');
   };
 };
 
